@@ -4,6 +4,7 @@ admin.initializeApp(functions.config().firebase)
 const cors = require('cors')({origin: true})
 
 exports.up = functions.https.onRequest((request, response) => {
+	admin.database().ref('/check/'+url).push({date: new Date()})
 	cors(request, response, () => {
 		var url = 'self'
 		if (true) {
@@ -11,6 +12,5 @@ exports.up = functions.https.onRequest((request, response) => {
 		} else {
 			response.status(500).send({error: 'An error occured'})
 		}
-		admin.database().ref('/check/'+url).push({date: new Date()})
 	})
 })
