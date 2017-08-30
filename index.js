@@ -25,6 +25,9 @@ app.get('/up', function (req, res) {
 			if (error) {
 				okerror = 'error'
 				resobject.error = error
+				if (error.code == 'ENOTFOUND') {
+					resobject.code = 404
+				}
 			}
 			if (_response) {
 				resobject.code = _response.statusCode
