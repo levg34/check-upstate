@@ -6,7 +6,7 @@ const cors = require('cors')({origin: true})
 exports.up = functions.https.onRequest((request, response) => {
 	cors(request, response, () => {
 		var url = 'self'
-		admin.database().ref('/check/'+url).push({date: new Date()})
+		admin.database().ref('/check/'+url).push({date: '00/00/0000 00:00'})
 		if (true) {
 			response.send({code: 200})
 		} else {
