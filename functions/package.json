@@ -6,7 +6,8 @@
     "firebase-admin": "~4.2.1",
     "firebase-functions": "^0.5.7",
     "moment": "^2.18.1",
-    "moment-timezone": "^0.5.13"
+    "moment-timezone": "^0.5.13",
+    "request": "^2.81.0"
   },
   "private": true
 }
