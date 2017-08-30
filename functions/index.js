@@ -27,7 +27,9 @@ exports.up = functions.https.onRequest((request, response) => {
 						okerror = 'ok'
 					}
 				}
-				admin.database().ref('/check/'+url+'/'+okerror).push(date)
+				var db_url = url.split('.')
+				db_url.pop()
+				admin.database().ref('/check/'+db_url.pop()+'/'+okerror).push(date)
 				response.send(resobject)
 				/*console.log('error:', error); // Print the error if one occurred 
 				console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received 
