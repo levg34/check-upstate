@@ -1,0 +1,26 @@
+{
+  "name": "check-upstate",
+  "version": "1.0.0",
+  "description": "check if website is uo",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/levg34/check-upstate.git"
+  },
+  "author": "levg34",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/levg34/check-upstate/issues"
+  },
+  "homepage": "https://github.com/levg34/check-upstate#readme",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.15.4",
+    "moment": "^2.18.1",
+    "moment-timezone": "^0.5.13",
+    "request": "^2.81.0"
+  }
+}
