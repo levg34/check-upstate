@@ -3,7 +3,7 @@ const admin = require('firebase-admin')
 admin.initializeApp(functions.config().firebase)
 const cors = require('cors')({origin: true})
 var moment = require('moment')
-var request = require('request')
+var dorequest = require('request')
 
 exports.up = functions.https.onRequest((request, response) => {
 	cors(request, response, () => {
@@ -14,7 +14,7 @@ exports.up = functions.https.onRequest((request, response) => {
 		if (url=='self') {
 			response.send({code: 200})
 		} else {
-			request('http://www.google.com', function (error, response, body) {
+			dorequest('http://www.google.com', function (error, response, body) {
 				var resobject = {}
 				if (error) {
 					okerror = 'error'
