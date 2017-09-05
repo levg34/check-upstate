@@ -20,7 +20,7 @@ app.get('/up', function (req, res) {
 		okerror = 'ok'
 		res.send({code: 200})
 	} else {
-		if (!(url.startsWith('/')||url.startsWith('http'))) {
+		if (!url.startsWith('http')) {
 			url='http://'+url
 		}
 		request(url, function (error, _response, body) {
