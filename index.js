@@ -28,7 +28,7 @@ app.get('/up', function (req, res) {
 			url='http://'+url
 		}
 		request(url, function (error, _response, body) {
-			var resobject = {}
+			var resobject = {url:url}
 			if (error) {
 				okerror = 'error'
 				resobject.error = error
