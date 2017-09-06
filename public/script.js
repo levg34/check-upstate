@@ -1,4 +1,4 @@
-var app = angular.module('app', [])
+var app = angular.module('app', ['jsonFormatter'])
 
 app.controller('testCtrl', function($scope,$http,$location) {
 	$scope.upstate = {}
