@@ -15,18 +15,23 @@
     <div class="container" ng-app="app" ng-controller="testCtrl">
       <h1>Upstate checker</h1>
       <div class="form-group">
-        <label for="usr">Url:</label>
+        <label>Url:</label>
         <input type="text" class="form-control" ng-model="url" ng-keydown="checkUpstate($event)">
         <button class="btn-primary" ng-click="checkUpstate()">Check</button>
       </div>
       <div class="alert alert-{{color}}" ng-show="url">
-        <p ng-show="url"><strong>Upstate of {{url}}</strong></p>
+        <p ng-show="url"><strong>Upstate of <a href="{{upstate.url}}" data-toggle="tooltip" title="{{tooltip}}">{{url}}</a></strong></p>
         <p ng-show="upstate.code">Code: {{upstate.code}}</p>
         <p ng-show="upstate.error">Error: <json-formatter open="1" json="upstate.error"></json-formatter></p>
       </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="/lib/json-formatter.min.js"></script>
     <script src="/script.js"></script>

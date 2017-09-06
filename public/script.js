@@ -1,8 +1,12 @@
 var app = angular.module('app', ['jsonFormatter'])
 
 app.controller('testCtrl', function($scope,$http,$location) {
-	$scope.upstate = {}
-	$scope.color = 'info'
+	$scope.init = function() {
+		$scope.upstate = {}
+		$scope.color = 'info'
+		$scope.tooltip = 'Press enter or click on Check first!'
+	}
+	$scope.init()
 	//$scope.selfUrl = $location.$$absUrl
 	$scope.checkUpstate = function(evt) {
 		if (!evt||evt.key=='Enter') {
@@ -10,9 +14,6 @@ app.controller('testCtrl', function($scope,$http,$location) {
 			$http.get(url).then(function successCallback(response) {
 				$scope.upstate = response.data
 				switch (response.data.code) {
-					case 200:
-						$scope.color = 'success'
-						break
 					case 404:
 					case 500:
 						$scope.color = 'danger'
@@ -24,12 +25,12 @@ app.controller('testCtrl', function($scope,$http,$location) {
 							$scope.color = 'warning'
 						}
 				}
+				$scope.tooltip = 'Click to follow link'
 			}, function errorCallback(response) {
 				console.log(response)
 			})
 		} else {
-			$scope.upstate = {}
-			$scope.color = 'info'
+			$scope.init()
 		}
 	}
 })
