@@ -3,6 +3,9 @@ var app = express()
 var moment = require('moment')
 var request = require('request')
 
+var errorCodes = [404,500]
+var dangerErrors = ['ENOTFOUND','EAI_AGAIN']
+
 app.set('port', (process.env.PORT || 5000)) 
 app.use(express.static(__dirname + '/public'))
 
@@ -18,28 +21,29 @@ app.get('/', function (req, res) {
 
 app.get('/up', function (req, res) {
 	var url = req.query.url
-	var okerror = 'error'
 	const date = moment().format('DD/MM/YYYY HH:mm')
 	if (!url) {
-		okerror = 'ok'
-		res.send({code: 200})
+		res.send({code: 200,color:'success'})
 	} else {
 		if (!url.startsWith('http')) {
 			url='http://'+url
 		}
 		request(url, function (error, _response, body) {
-			var resobject = {url:url}
+			var resobject = {url:url,color:'info'}
 			if (error) {
-				okerror = 'error'
 				resobject.error = error
-				if (error.code == 'ENOTFOUND') {
-					resobject.code = 404
+				if (dangerErrors.indexOf(error.code) != -1) {
+					resobject.color = 'danger'
 				}
 			}
 			if (_response) {
 				resobject.code = _response.statusCode
-				if (resobject.code == 200) {
-					okerror = 'ok'
+				if (Math.floor(resobject.code/100) == 2) {
+					resobject.color = 'success'
+				} else if (errorCodes.indexOf(resobject.code)!=-1) {
+					resobject.color = 'danger'
+				} else {
+					resobject.color = 'warning'
 				}
 			}
 			res.send(resobject)
