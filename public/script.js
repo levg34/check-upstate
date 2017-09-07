@@ -13,18 +13,7 @@ app.controller('testCtrl', function($scope,$http,$location) {
 			var url = '/up?url='+$scope.url
 			$http.get(url).then(function successCallback(response) {
 				$scope.upstate = response.data
-				switch (response.data.code) {
-					case 404:
-					case 500:
-						$scope.color = 'danger'
-						break
-					default:
-						if (Math.floor(response.data.code)/100==2) {
-							$scope.color = 'success'
-						} else {
-							$scope.color = 'warning'
-						}
-				}
+				$scope.color = response.data.color
 				$scope.tooltip = 'Click to follow link'
 			}, function errorCallback(response) {
 				console.log(response)
