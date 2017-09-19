@@ -2,6 +2,7 @@ var express = require('express')
 var app = express() 
 var moment = require('moment')
 var request = require('request')
+var purl = require('url')
 
 var errorCodes = [404,500]
 var dangerErrors = ['ENOTFOUND','EAI_AGAIN']
@@ -38,6 +39,10 @@ app.get('/up', function (req, res) {
 			}
 			if (_response) {
 				resobject.code = _response.statusCode
+				resobject.url = _response.request.href
+				if (purl.parse(resobject.url).host.indexOf(purl.parse(url).host)==-1) {
+					resobject.redirect = true
+				}
 				if (Math.floor(resobject.code/100) == 2) {
 					resobject.color = 'success'
 				} else if (errorCodes.indexOf(resobject.code)!=-1) {
