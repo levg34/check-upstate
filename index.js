@@ -22,7 +22,7 @@ app.get('/', function (req, res) {
 
 app.get('/up', function (req, res) {
 	var url = req.query.url
-	const date = moment().format('DD/MM/YYYY HH:mm')
+	//const date = moment().format('DD/MM/YYYY HH:mm')
 	if (!url) {
 		res.send({code: 200,color:'success'})
 	} else {
@@ -50,6 +50,35 @@ app.get('/up', function (req, res) {
 				} else {
 					resobject.color = 'warning'
 				}
+			}
+			res.send(resobject)
+		})
+	}
+})
+
+app.get('/redirect', function (req, res) {
+	var url = req.query.url
+	//const date = moment().format('DD/MM/YYYY HH:mm')
+	if (!url) {
+		res.status(400).send({error:'Missing parameter: URL.'})
+	} else {
+		if (!url.startsWith('http')) {
+			url='http://'+url
+		}
+		var resobject = {url:url}
+		request(url, {
+			method: 'HEAD',
+			followAllRedirects: true
+		}, function(error, response, body) {
+			if (error) {
+				resobject.error = error
+			}
+			if (response) {
+				var return_url = response.request.href
+				if (purl.parse(return_url).host.indexOf(purl.parse(url).host)==-1) {
+					resobject.redirect = true
+				}
+				resobject.r_url = return_url
 			}
 			res.send(resobject)
 		})
